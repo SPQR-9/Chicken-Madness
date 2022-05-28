@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
+using System.Collections;
 
 public class Catcher : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _effect;
     [SerializeField] private Transform _point;
     [SerializeField] private float _duration;
     [SerializeField] private int _capacity;
@@ -26,15 +28,20 @@ public class Catcher : MonoBehaviour
         if (_count >= _capacity)
             return;
 
-        _count++;
-        Caught?.Invoke();
-
-        enemy.transform.parent = transform.parent;
         enemy.enabled = false;
-        enemy.transform.DOMove(_point.position, _duration);
-        enemy.transform.DOScale(Vector3.zero, _duration);
+        enemy.transform.parent = _point.parent;
+        enemy.transform.DOLocalMove(_point.localPosition, _duration);
+        enemy.transform.DOScale(enemy.transform.localScale / 2, _duration);
 
         Destroy(enemy.gameObject, _duration);
+        Invoke(nameof(Catch), _duration);
+    }
+
+    private void Catch()
+    {
+        _count++;
+        Caught?.Invoke();
+        _effect.Play();
     }
 
     public void TakeAway()

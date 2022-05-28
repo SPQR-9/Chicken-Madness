@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TraceDrawer : MonoBehaviour
 {
-    [SerializeField] private BoxCollider _first;
-    [Space]
+    [SerializeField] private ParticleSystem _effect;
     [SerializeField] private BoxCollider _template;
     [SerializeField] private float _tracingDelay;
     [SerializeField] private float _lifetime;
@@ -20,10 +19,14 @@ public class TraceDrawer : MonoBehaviour
 
     private void Start()
     {
+        _point = Instantiate(_template, transform.position, transform.rotation);
         InvokeRepeating(nameof(Draw), 0, _tracingDelay);
-        _point = _first;
         Destroy(_point.gameObject, _lifetime);
     }
+
+    private void OnEnable() => _effect.Play();
+
+    private void OnDisable() => _effect.Stop();
 
     private void Draw()
     {

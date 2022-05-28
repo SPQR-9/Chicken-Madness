@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour, IInput
 
     private void Start()
     {
-        _current.Enter(null);
+        _current.InitializeFirst();
         _current.Changed += Change;
 
         _collider = GetComponent<CapsuleCollider>();
@@ -40,5 +40,10 @@ public class EnemyAI : MonoBehaviour, IInput
         _current.Changed -= Change;
         _current = state;
         _current.Changed += Change;
+
+        if (state is HuntedState)
+            _mover.SpeedUp();
+        if (state is FreeState)
+            _mover.SpeedDown();
     }
 }

@@ -69,12 +69,17 @@ public class Carrier : MonoBehaviour
 
             var template = _cages[_count];
             var cage = Instantiate(template, template.transform.position, template.transform.rotation);
+            cage.transform.localScale = CalculateScale(cage.transform.localScale);
             template.SetActive(false);
 
-            cage.transform.DOMove(warehouse.Point, _delay);
+            cage.transform.DOMove(warehouse.GetNextPoint(), _delay);
 
             CountChanged?.Invoke(_count);
             yield return wait;
         }
     }
+
+    private Vector3 CalculateScale(Vector3 current) => 
+        new Vector3(current.x * transform.localScale.x, 
+            current.y * transform.localScale.y, current.z * transform.localScale.z);
 }

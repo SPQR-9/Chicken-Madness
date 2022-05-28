@@ -11,6 +11,9 @@ public class EnemyRadar : Radar
 
     protected override void EntranceDetected(Collider other)
     {
+        if (other.isTrigger)
+            return;
+
         if (other.TryGetComponent(out PlayerInput player))
             ChaseStarted?.Invoke(player.transform);
     }

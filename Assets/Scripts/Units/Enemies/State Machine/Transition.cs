@@ -5,13 +5,7 @@ using UnityEngine.Events;
 
 public abstract class Transition : MonoBehaviour
 {
-    [SerializeField] private State _targetState;
-
     public event UnityAction<State> Triggered;
 
-    protected void Trigger(Transform value)
-    {
-        _targetState.Enter(value);
-        Triggered?.Invoke(_targetState);
-    }
+    protected void Transit(State state) => Triggered?.Invoke(state);
 }

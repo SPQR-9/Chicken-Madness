@@ -31,13 +31,17 @@ public class Mover : MonoBehaviour
     {
         float delta = Time.deltaTime;
 
-        if (delta > 0.01f)
-            delta = 0.01f;
+        if (delta > 0.02f)
+            delta = 0.02f;
 
         _direction = _input.Direction;
         Move(_speed * delta);
         Rotate(_rotationSpeed * delta);
     }
+
+    public void SpeedUp() => _speed *= 2;
+
+    public void SpeedDown() => _speed /= 2;
 
     private void Move(float speed)
     {
