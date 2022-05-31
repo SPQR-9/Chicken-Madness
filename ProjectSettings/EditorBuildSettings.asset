@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Game/Scenes/ScreenSaver.unity
+    guid: 748462eca262fb34db2b83223815f6d2
+  - enabled: 1
     path: Assets/Game/Scenes/Main.unity
     guid: 4f4257286acc11746a8eeba3b39fd00b
   m_configObjects: {}
