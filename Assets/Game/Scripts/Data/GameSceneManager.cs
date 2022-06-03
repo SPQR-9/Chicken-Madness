@@ -47,12 +47,12 @@ public class GameSceneManager : Data
     {
         _appMetricaObject.OnLevelComplete(GetDisplayedLevelNumber());
         _gameAnalyticsObject.OnLevelComplete(GetDisplayedLevelNumber());
-        Save();
         if (SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings)
             _nextLevelIndex = 1;
         else
             _nextLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
         SaveNextLevelIndex();
+        Save();
         SceneManager.LoadScene(_nextLevelIndex);
     }
 
